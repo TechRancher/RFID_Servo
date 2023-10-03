@@ -3,7 +3,7 @@
     Author: Jason Sikes AKA The Tech Rancher
     Version: 1.0
     Date Coded: 10/02/2023
-    Description: This circuit reads data from the RFID RC522 Reads the position value of the SG90 Servo and displays either Locked or Unlocked status on the SSD1306 Display along with one of two LED's will light up. Red LED for Locked status or Green LED status for Unlocked. The MC is a Raspberry Pi Pico W.
+    Description: This circuit reads data from the RFID RC522 and Reads the position value of the SG90 Servo and displays either Locked or Unlocked status on the SSD1306 Display along with one of two LED's will light up. Red LED for Locked status or Green LED status for Unlocked. The MC is a Raspberry Pi Pico W.
     License: MIT License
 """
 # Import Libraries
@@ -86,12 +86,13 @@ def LED_Status(servo_stat,redLED,greenLED):
     """
     redLED = LED_Red
     greenLED = LED_Green
+    servo_stat = servo.duty_u16()
     if servo_stat == 8191:
-        redLED.on()
-        greenLED.off()
+        redLED.value(1)
+        greenLED.value(0)
     else:  
-        redLED.off()
-        greenLED.on()
+        redLED.value(0)
+        greenLED.value(1)
 
 dsp.fill(0)
 dsp.show() # This will clear anything on the SSD1306 Display
